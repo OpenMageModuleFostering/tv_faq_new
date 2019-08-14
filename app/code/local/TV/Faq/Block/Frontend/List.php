@@ -15,8 +15,8 @@ class TV_Faq_Block_Frontend_List extends Mage_Core_Block_Template
 	protected $_faqCollection;
 	
 	protected function _prepareLayout()
-    {
-        if ($head = $this->getLayout()->getBlock('head')) {
+   {
+        if ($head = $this->getLayout()->getBlock('head')){
             $head->setTitle($this->htmlEscape($this->__('Frequently Asked Questions')) . ' - ' . $head->getTitle());
         }
     }
@@ -31,13 +31,13 @@ class TV_Faq_Block_Frontend_List extends Mage_Core_Block_Template
 	{
 		if (!$this->_faqCollection || (intval($pageSize) > 0
 			&& $this->_faqCollection->getSize() != intval($pageSize))
-		) {
+		){
 			$this->_faqCollection = Mage :: getModel('tv_faq/faq')
 				->getCollection()
 				->addStoreFilter(Mage :: app()->getStore())
 				->addIsActiveFilter();
 			
-			if (isset($pageSize) && intval($pageSize) && intval($pageSize) > 0) {
+			if (isset($pageSize) && intval($pageSize) && intval($pageSize) > 0){
 				$this->_faqCollection->setPageSize(intval($pageSize));
 			}
 		}
@@ -53,7 +53,7 @@ class TV_Faq_Block_Frontend_List extends Mage_Core_Block_Template
 	public function getCategoryCollection()
 	{
 	    $categories = $this->getData('category_collection');
-	    if (is_null($categories)) {
+	    if (is_null($categories)){
     	    $categories =  Mage::getResourceSingleton('tv_faq/category_collection')
     	       ->addStoreFilter(Mage::app()->getStore())
     	       ->addIsActiveFilter();
@@ -89,10 +89,10 @@ class TV_Faq_Block_Frontend_List extends Mage_Core_Block_Template
 		$_intro = mb_substr($_intro, 0, mb_strpos($_intro, "\n"));
 		
 		$length = 100 - mb_strlen($faqItem->getQuestion());
-		if ($length < 0) {
+		if ($length < 0){
 			return '';
 		}
-		if (mb_strlen($_intro) > $length) {
+		if (mb_strlen($_intro) > $length){
 			$_intro = mb_substr($_intro, 0, $length);
 			$_intro = mb_substr($_intro, 0, mb_strrpos($_intro, ' ')).'...';
 		}
@@ -120,7 +120,7 @@ class TV_Faq_Block_Frontend_List extends Mage_Core_Block_Template
 	 *
 	 * @return boolean True if the jumplist should be displayed
 	 */
-	public function hasFaqJumplist() {
+	public function hasFaqJumplist(){
 		// TODO add configuration option to enable/disable jumplist
 		return count($this->getFaqJumplist()) > 0;
 	}

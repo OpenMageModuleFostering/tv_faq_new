@@ -10,17 +10,17 @@
  * Website: www.abc.com 
  * Email: honeyvishnoi@gmail.com
  */
-class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
+class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template{
 	
 	protected $_faq;
 	protected $_images;
 	
 	
 	protected function _prepareLayout()
-    {
+   {
         $faq = $this->getFaq();
 
-        if ($faq !== false && $head = $this->getLayout()->getBlock('head')) {
+        if ($faq !== false && $head = $this->getLayout()->getBlock('head')){
             $head->setTitle($this->htmlEscape($faq->getQuestion()) . ' - ' . $head->getTitle());
         }
     }
@@ -30,17 +30,17 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 	 *
 	 * @return TV_Faq_Model_Faq The current faq item
 	 */
-	public function getFaq() {
-		if (!$this->_faq) {
+	public function getFaq(){
+		if (!$this->_faq){
 			$id = intval($this->getRequest()->getParam('faq'));
-			try {
+			try{
 				$this->_faq = Mage :: getModel('tv_faq/faq')->load($id); 
 				
 				if ($this->_faq->getIsActive() != 1){
 					Mage::throwException('Faq Item is not active');
 				}
 			}
-			catch (Exception $e) {
+			catch (Exception $e){
 				$this->_faq = false;
 			}
 		}
@@ -52,12 +52,12 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 	/**
 	 * Extracting available images
 	 *
-	 * @param string $thumbSize dimensions of thumbnail image (either number of width pixels or {width]x{height}
-	 * @param string $imageSize dimensions of detail image (either number of width pixels or {width]x{height}
+	 * @param string $thumbSize dimensions of thumbnail image (either number of width pixels or{width]x{height}
+	 * @param string $imageSize dimensions of detail image (either number of width pixels or{width]x{height}
 	 * @return unknown
 	 */
-	public function getImages($thumbSize = null, $imageSize = null) {
-		if (!$faq = $this->getFaq()) {
+	public function getImages($thumbSize = null, $imageSize = null){
+		if (!$faq = $this->getFaq()){
 			return false;
 		}
 		
@@ -66,17 +66,17 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 		$result = array();
 		
 		// if we have found images - process them
-		if (is_array($images) && !empty($images)) {
+		if (is_array($images) && !empty($images)){
 			
 			// get media model
 			$mediaConfig = Mage :: getSingleton('faq/faq_media_config');
 			$mediaModel = Mage :: getSingleton('media/image')->setConfig($mediaConfig);
 			
 			// iterate through images
-			foreach ($images as $image) {
+			foreach ($images as $image){
 				
 				// only go on if the image can be found
-				if (file_exists(Mage::getBaseDir('media') . DS . 'faq' . DS . $image)) {
+				if (file_exists(Mage::getBaseDir('media') . DS . 'faq' . DS . $image)){
 					
 					// gather needed information
 					$newImage = array(
@@ -84,15 +84,15 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 							'galleryUrl' => $this->getGalleryUrl($image)
 					);
 					
-					if ($thumbSize) {
+					if ($thumbSize){
 						$newImage['src'] = $mediaModel->getSpecialLink($image, $thumbSize);
 					}
 					
-					if ($imageSize) {
+					if ($imageSize){
 						$newImage['href'] = $mediaModel->getSpecialLink($image, $imageSize);
 						$newImage['width'] = intval($imageSize);
 					}
-					else {
+					else{
 						$newImage['href'] = Mage::getBaseUrl('media') . '/faq/' . $image;
 						$newImage['width'] = $mediaModel->setFileName($image)->getDimensions()->getWidth();
 					}
@@ -112,9 +112,9 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 	 * @param string $image File name
 	 * @return string URL to gallery
 	 */
-	public function getGalleryUrl($image) {
+	public function getGalleryUrl($image){
 		$params = array('faq' => $this->getFaq()->getFaqId() . '_' . urlencode(str_replace(array(' ', 'ä', 'ö', 'ü', 'ß'), array('_', 'ae', 'oe', 'ue', 'ss'), (strtolower($this->getFaq()->getQuestion())))));
-        if ($image) {
+        if ($image){
             $params['image'] = $image;
             return $this->getUrl('*/*/gallery', $params);
         }
@@ -128,10 +128,10 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 	 * @param string $type needed Image information type ('previous', 'current' or 'next') - if not given the function returns all of them.
 	 * @return array Requested image information
 	 */
-	public function getGalleryImages($type = null) {
+	public function getGalleryImages($type = null){
 		
 		// only do processing once (since parameters don't change during gallery view)
-		if (!$this->_images) {
+		if (!$this->_images){
 			
 			// get images and parameters
 			$currentParam = $this->getRequest()->getParam('image');
@@ -145,29 +145,29 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 			);
 			
 			// if we have images -> process them
-			if (is_array($images) && !empty($images)) {
+			if (is_array($images) && !empty($images)){
 				$previousImage = null;
 				
-				foreach ($images as $image) {
+				foreach ($images as $image){
 					
 					// if we found the requested pic -> save it
 					// if the requested pic was not found the first pic of the collection is used
-					if ($image['original'] == $currentParam || !$result['current']) {
+					if ($image['original'] == $currentParam || !$result['current']){
 						$result['current'] = $image;
 						
 						// save the previous image to get back to it
 						$result['previous'] = $previousImage;
 						
-						if ($image['original'] == $currentParam) {
+						if ($image['original'] == $currentParam){
 							$current = true;
 						}
 					}
 					// save next image for pagination
-					elseif ($result['current']) {
+					elseif ($result['current']){
 						$result['next'] = $image;
 						
 						// if we found the requested image -> break
-						if ($current) {
+						if ($current){
 							break;
 						}
 					}
@@ -182,7 +182,7 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 		}
 		
 		// if the requested type is given - return the image
-		if ($type) {
+		if ($type){
 			return (isset($this->_images[$type]) ? $this->_images[$type] : false);
 		}
 		
@@ -196,7 +196,7 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 	 *
 	 * @return array Image information
 	 */
-	public function getCurrentImage() {
+	public function getCurrentImage(){
 		return $this->getGalleryImages('current');
 	}
 	
@@ -206,7 +206,7 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 	 *
 	 * @return array Image information
 	 */
-	public function getPreviousImage() {
+	public function getPreviousImage(){
 		return $this->getGalleryImages('previous');
 	}
 	
@@ -216,7 +216,7 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 	 *
 	 * @return array Image information
 	 */
-	public function getNextImage() {
+	public function getNextImage(){
 		return $this->getGalleryImages('next');
 	}
 	
@@ -225,7 +225,7 @@ class TV_Faq_Block_Frontend_Detail extends Mage_Core_Block_Template {
 	 *
 	 * @return int Width of current image
 	 */
-	public function getImageWidth() {
+	public function getImageWidth(){
 		$current = $this->getCurrentImage();
 		return $current['width'];
 	}

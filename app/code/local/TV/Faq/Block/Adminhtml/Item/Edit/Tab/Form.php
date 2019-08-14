@@ -32,11 +32,7 @@ class TV_Faq_Block_Adminhtml_Item_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
         
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('faq_');
-        $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(
-
-     array('tab_id' => 'form_section')
-
-);
+        $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(array('tab_id' => 'form_section'));
 
 						$wysiwygConfig["files_browser_window_url"] = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/cms_wysiwyg_images/index');
 						
