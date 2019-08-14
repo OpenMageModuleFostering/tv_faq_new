@@ -3,7 +3,7 @@
     "type": "magento-module",
     "license": "OSL",
     "homepage": "",
-    "description": "This extension allows admin to enter questions and answers and list them on front end. ",
+    "description": "This extension allows admin to enter questions and answers and list them on front end.",
     "authors": [
     {
         "name": "Tarun Vishnoi",

@@ -68,11 +68,11 @@
 	<?php foreach ($this->getFaqCollection() as $faqItem): ?>
 	
 	<dt id="faq-que-<?php echo $faqItem->getId() ?>" onclick="slide1('faq-que-<?php echo $faqItem->getId() ?>','faq-ans-<?php echo $faqItem->getId() ?>')">
-		<?php echo $this->htmlEscape($faqItem->getQuestion()) ?>
+		<?php echo $this->htmlEscape($faqItem->getQuestion()) ?><br>
 	</dt>
 	<dd id="faq-ans-<?php echo $faqItem->getId() ?>" style="display:none;">
 	<?php $_process = Mage::helper('cms')->getBlockTemplateProcessor();?>
-    <?php echo $_process->filter($faqItem->getAnswer()); ?>
+    <?php echo $_process->filter($faqItem->getAnswer()); ?><br>
 	</dd>
 	<?php endforeach; ?>
 </dl></p>
@@ -91,11 +91,11 @@
 	<?php foreach ($this->getItemCollectionByCategory($category) as $faqItem): ?>
 	
 	<dt id="faq-que2-<?php echo $faqItem->getId() ?>" onclick="slide2('faq-que2-<?php echo $faqItem->getId() ?>','faq-ans2-<?php echo $faqItem->getId() ?>')">
-		<?php echo $this->htmlEscape($faqItem->getQuestion()) ?>
+		<?php echo $this->htmlEscape($faqItem->getQuestion()) ?><br>
 	</dt>
 	<dd id="faq-ans2-<?php echo $faqItem->getId() ?>" style="display:none;">
 	<?php $_process = Mage::helper('cms')->getBlockTemplateProcessor();?>
-    <?php echo $_process->filter($faqItem->getAnswer()); ?>
+    <?php echo $_process->filter($faqItem->getAnswer()); ?><br>
 	</dd>
 	<?php endforeach; ?>
 </dl></p>
