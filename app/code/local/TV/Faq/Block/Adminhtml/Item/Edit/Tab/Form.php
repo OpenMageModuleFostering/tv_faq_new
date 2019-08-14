@@ -101,12 +101,12 @@ class TV_Faq_Block_Adminhtml_Item_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
                                 '1' => Mage::helper('cms')->__('Enabled'), 
                                 '0' => Mage::helper('cms')->__('Disabled') ) ));
         
-        $fieldset->addField('category_id', 'multiselect', 
+        $fieldset->addField('category_id', 'select', 
             array (
                 'label' => Mage::helper('tv_faq')->__('Category'), 
                 'title' => Mage::helper('tv_faq')->__('Category'), 
                 'name' => 'categories[]', 
-                'required' => false,
+                'required' => true,
                 'values' => Mage::getResourceSingleton('tv_faq/category_collection')->toOptionArray(),
             )
         );
