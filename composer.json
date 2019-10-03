@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/tv_faq_new",
+    "name": "OpenMageModuleFostering\/tv_faq_new",
     "type": "magento-module",
     "license": "OSL",
     "homepage": "",
     "description": "This extension allows admin to enter questions and answers and list them on front end.",
     "authors": [
-    {
-        "name": "Tarun Vishnoi",
-        "email": "honeyvishnoi@gmail.com"
-    }
-],
+        {
+            "name": "Tarun Vishnoi",
+            "email": "honeyvishnoi@gmail.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
